@@ -116,8 +116,9 @@ and with the HTTP headers.
 `navigator.deviceMemory` is deliberately coarse — "rounding the actual memory to the nearest power
 of 2, then dividing... clamped within lower and upper bounds," e.g. one of `2, 4, 8, 16, 32`
 **[confirmed by source: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory]** —
-so it's a coherence check, not an identifier. `navigator.platform` appears directly in our loader
-bundle **[observed]**. The User-Agent Client Hints API (`navigator.userAgentData` with `brands`,
+so it's a coherence check, not an identifier. (Correction: the `platform` string in the captured
+loader is the `/cdn-cgi/challenge-platform/` endpoint path, not a `navigator.platform` read — see
+[docs/04](04-loader-internals.md).) The User-Agent Client Hints API (`navigator.userAgentData` with `brands`,
 `mobile`, `platform`, and gated `getHighEntropyValues()`) gives a second, structured source for
 platform/version that must agree with the legacy UA string and with `navigator.platform`. **[confirmed by source: https://developer.mozilla.org/en-US/docs/Web/API/User-Agent_Client_Hints_API]**
 A UA claiming Windows Chrome while `platform` says `Linux` or UA-CH says something else is the kind

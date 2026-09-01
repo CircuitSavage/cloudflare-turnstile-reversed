@@ -22,7 +22,8 @@ A sourced teardown of how Cloudflare Turnstile fingerprints and scores browsers,
 
 ## Docs
 
-- **[docs/03-fingerprinting.md](docs/03-fingerprinting.md)** — the fingerprinting surface: behavioral (`isTrusted`, interaction), automation tells (`navigator.webdriver`, `cdc_`, function-hook detection), canvas/WebGL, audio, device coherence, and the network layer (TLS/JA3/JA4, HTTP/2, IP reputation). Cited throughout; this is the core.
+- **[docs/fingerprinting/](docs/fingerprinting/)** — the deep layer: 8 per-field teardowns (behavioral, automation-tells, canvas, WebGL, audio, device-coherence, TLS/HTTP2, IP/scoring/PoW), each cited and tagged confirmed/observed/inferred. Start at its [index](docs/fingerprinting/README.md).
+- [docs/03-fingerprinting.md](docs/03-fingerprinting.md) — the one-page fingerprinting overview (surface map; the `docs/fingerprinting/` set goes deeper per field).
 - **[docs/04-loader-internals.md](docs/04-loader-internals.md)** — concrete code from the real bundle: the `[native code]` hook-detection function, the `isTrusted` interaction gate, stack/timing telemetry, the endpoint builder.
 - [docs/01-challenge-flow.md](docs/01-challenge-flow.md) — the live request flow (loader → versioned bundle → challenge-platform), captured.
 - [docs/02-widget-params.md](docs/02-widget-params.md) — the widget parameters the bundle reads (`sitekey`, `cData`, `action`, `chlPageData`).

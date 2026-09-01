@@ -57,7 +57,7 @@ def extract(html: str) -> dict:
 def solve_with_peak(sitekey: str, url: str, proxy: str | None = None) -> dict:
     key = os.environ.get("PEAK_API_KEY")
     if not key:
-        sys.exit("Set PEAK_API_KEY to use --solve. Free key at peak.fo (code PEAKGH).")
+        sys.exit("Set PEAK_API_KEY to use --solve. Free key at peak.fo.")
     body = {"task_type": "turnstiletask", "sitekey": sitekey, "url": url}
     if proxy:
         body["proxy"] = proxy

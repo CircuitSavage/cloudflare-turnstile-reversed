@@ -1,8 +1,12 @@
 <div align="center">
 
+<a href="https://peak.fo/?utm_source=github&utm_medium=readme&utm_campaign=re&utm_content=cloudflare-turnstile-reversed">
+  <img src="./assets/peak-banner.png" alt="Peak — solve Cloudflare Turnstile & the 5s challenge in ~1s" width="100%">
+</a>
+
 # cloudflare-turnstile-reversed
 
-Turnstile challenge internals, captured live: the request flow, the challenge bundle, and a capture toolkit. The byte-level teardown is a marked slot, not written from memory.
+A sourced teardown of how Cloudflare Turnstile fingerprints and scores browsers, plus a live capture tool. Every claim is cited or tagged `[observed]` / `(inferred)` — no filler, no memory guesses.
 
 <p>
 <img src="https://img.shields.io/badge/python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+">
@@ -10,37 +14,30 @@ Turnstile challenge internals, captured live: the request flow, the challenge bu
 <a href="https://t.me/jujucodings"><img src="https://img.shields.io/badge/Telegram-%40jujucodings-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram"></a>
 </p>
 
-<sub>Need it solved, not reversed? <a href="https://peak.fo/?utm_source=github&utm_medium=readme&utm_campaign=re&utm_content=cloudflare-turnstile-reversed"><strong>Peak</strong></a> solves Cloudflare Turnstile and the 5s challenge via API — pay per success, from $1/1K, free key with code <code>PEAKGH</code>. (reCAPTCHA coming soon.)</sub>
+<sub>Need it solved, not studied? <a href="https://peak.fo/?utm_source=github&utm_medium=readme&utm_campaign=re&utm_content=cloudflare-turnstile-reversed"><strong>Peak</strong></a> solves Cloudflare Turnstile and the 5s challenge via API — pay per success, from $1/1K, free key, no card. (reCAPTCHA coming soon.)</sub>
 
 </div>
 
 ---
 
-## What's here
+## Docs
 
-- `tools/capture.py` — pull the `sitekey` / `cData` / `action` off a page; `--solve` returns a token.
-- `docs/01-challenge-flow.md` — the live request flow (loader → bundle → challenge-platform), captured.
-- `docs/02-widget-params.md` — the parameters the bundle reads, taken from the real bundle.
+- **[docs/03-fingerprinting.md](docs/03-fingerprinting.md)** — the fingerprinting surface: behavioral (`isTrusted`, interaction), automation tells (`navigator.webdriver`, `cdc_`, function-hook detection), canvas/WebGL, audio, device coherence, and the network layer (TLS/JA3/JA4, HTTP/2, IP reputation). Cited throughout; this is the core.
+- [docs/01-challenge-flow.md](docs/01-challenge-flow.md) — the live request flow (loader → versioned bundle → challenge-platform), captured.
+- [docs/02-widget-params.md](docs/02-widget-params.md) — the widget parameters the bundle reads (`sitekey`, `cData`, `action`, `chlPageData`).
 
-## Quick start
+## Tool
+
+`tools/capture.py` — pull the `sitekey` / `cData` / `action` off a page; `--solve` returns a token.
 
 ```bash
 python tools/capture.py https://example.com/
 PEAK_API_KEY=pk_your_key python tools/capture.py https://example.com/ --solve
 ```
 
-## The flow (captured live, not guessed)
+## Scope
 
-```
-loader    GET  challenges.cloudflare.com/turnstile/v0/api.js?render=explicit   -> 302
-bundle    GET  challenges.cloudflare.com/turnstile/v0/b/<hash>/api.js          -> obfuscated challenge JS (84 KB)
-orchestr  POST challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/<seg>/<sitekey>
-token     ->   submitted as the cf-turnstile-response field
-```
-
-## The reverse
-
-The step-2 bundle is minified and rotates per build; step 3 posts the fingerprint/proof payload. The byte-level teardown of that payload is the gated part — the slot for it is marked in [`docs/01-challenge-flow.md`](docs/01-challenge-flow.md).
+**Is:** a sourced map of the fingerprinting surface (which signals, collected where) and capture tooling. **Isn't:** a byte-level deobfuscation of the versioned bundle, the challenge-platform payload schema, or token construction — and not a token-forgery method, since tokens are single-use and validated server-side via siteverify.
 
 ## Legitimate use
 

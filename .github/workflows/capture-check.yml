@@ -1,0 +1,34 @@
+name: capture check
+
+# Health check: run the capture tool against a live Turnstile page every ~48h,
+# confirm it still resolves a sitekey, and log the observation.
+on:
+  schedule:
+    - cron: "0 6 */2 * *"   # ~every 48 hours, 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run capture and log
+        run: |
+          set +e
+          out=$(python tools/capture.py "https://2captcha.com/demo/cloudflare-turnstile" 2>&1)
+          sk=$(printf '%s' "$out" | grep -oE '"sitekey": "[^"]+"' | head -1 | sed 's/.*: "//;s/"//')
+          [ -z "$sk" ] && sk="none"
+          echo "- $(date -u +%Y-%m-%dT%H:%MZ)  sitekey=$sk" >> docs/observed-builds.md
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/observed-builds.md
+          git commit -m "chore: capture check $(date -u +%Y-%m-%d)" || exit 0
+          git push

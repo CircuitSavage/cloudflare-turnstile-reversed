@@ -26,7 +26,8 @@ A sourced teardown of how Cloudflare Turnstile fingerprints and scores browsers,
 - [docs/03-fingerprinting.md](docs/03-fingerprinting.md) — the one-page fingerprinting overview (surface map; the `docs/fingerprinting/` set goes deeper per field).
 - **[docs/04-loader-internals.md](docs/04-loader-internals.md)** — concrete code from the real bundle: the `[native code]` hook-detection function, the `isTrusted` interaction gate, stack/timing telemetry, the endpoint builder.
 - [docs/01-challenge-flow.md](docs/01-challenge-flow.md) — the live request flow (loader → versioned bundle → challenge-platform), captured.
-- [docs/02-widget-params.md](docs/02-widget-params.md) — the widget parameters the bundle reads (`sitekey`, `cData`, `action`, `chlPageData`).
+- [docs/02-widget-params.md](docs/02-widget-params.md) — what the bundle reads off the page (`sitekey`, `cData`, `action`, `chlPageData`), plus the full documented render parameter reference (`theme`, `size`, `appearance`, `execution`, callbacks, retry/refresh).
+- [docs/05-token-verification.md](docs/05-token-verification.md) — the token (single-use, ~300s TTL, hostname-bound) and the `siteverify` API: request/response fields and the full error-code table.
 
 ## Tool
 

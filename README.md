@@ -46,6 +46,10 @@ PEAK_API_KEY=pk_your_key python tools/capture.py https://example.com/ --solve
 
 Research and automation on data you are allowed to access. Respect each site's Terms of Service and `robots.txt`. No credential stuffing.
 
+## See also
+
+- [awesome-turnstile-solvers](https://github.com/CircuitSavage/awesome-turnstile-solvers) — curated list of Turnstile solving services, open-source libraries, framework integrations, and research.
+
 ## License
 
 MIT.

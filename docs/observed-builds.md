@@ -23,3 +23,4 @@ Each line records that the capture path still resolves a widget sitekey.
 - 2026-10-07T13:00Z  sitekey=3x00000000000000000000FF
 - 2026-10-09T12:54Z  sitekey=3x00000000000000000000FF
 - 2026-10-11T12:26Z  sitekey=3x00000000000000000000FF
+- 2026-10-13T13:54Z  sitekey=3x00000000000000000000FF

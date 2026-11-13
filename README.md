@@ -50,6 +50,12 @@ Research and automation on data you are allowed to access. Respect each site's T
 
 - [awesome-turnstile-solvers](https://github.com/CircuitSavage/awesome-turnstile-solvers) — curated list of Turnstile solving services, open-source libraries, framework integrations, and research.
 
+Troubleshooting notes that cover the same flow from the integrator's side:
+
+- [__cf_chl_tk explained](https://blog.peak.fo/cf-chl-tk-explained/): what the `__cf_chl_tk` parameter is, why it grants nothing on its own, and how it fits the challenge flow that ends in a `cf_clearance` cookie.
+- [Turnstile error codes](https://blog.peak.fo/cloudflare-turnstile-error-codes/): 110200, 300030, 600010 and the rest, grouped by which stage of the flow failed.
+- [cf-turnstile-response is empty](https://blog.peak.fo/cf-turnstile-response-empty/): the token is read before the challenge completes. The causes, in order, and the fix for each.
+
 ## License
 
 MIT.
